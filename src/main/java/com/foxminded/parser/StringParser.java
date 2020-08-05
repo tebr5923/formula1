@@ -14,12 +14,15 @@ public class StringParser {
     }
 
     private Racer parseString(String string) {
+        checkString(string);
         String[] strings = string
                 .split(DELIMITER, -1);
         return new Racer(strings[0], strings[1], strings[2]);
     }
 
-    private void checkString(String string){
-
+    private void checkString(String string) {
+        if (string.chars().filter(ch -> ch == '_').count() != 2) {
+            throw new IllegalArgumentException("Wrong string format");
+        }
     }
 }
