@@ -66,4 +66,13 @@ public class Racer {
     public int hashCode() {
         return Objects.hash(abbreviation, fullName, teamName);
     }
+
+    @Override
+    public String toString() {
+        return "Racer{" +
+                "abbreviation='" + abbreviation + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", teamName='" + teamName + '\'' +
+                '}';
+    }
 }
