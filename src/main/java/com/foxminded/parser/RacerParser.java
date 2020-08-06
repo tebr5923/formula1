@@ -2,7 +2,8 @@ package com.foxminded.parser;
 
 import com.foxminded.racer.Racer;
 
-import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -10,8 +11,9 @@ import java.util.stream.Stream;
 public class RacerParser {
     private static final String DELIMITER = "_";
 
-    public List<Racer> parse(Stream<String> stringStream) {
-        return stringStream.map(this::parseRacer).collect(Collectors.toList());
+    public Map<String, Racer> parse(Stream<String> stringStream) {
+        return stringStream.map(this::parseRacer)
+                .collect(Collectors.toMap(Racer::getAbbreviation, Function.identity()));
     }
 
     private Racer parseRacer(String string) {
@@ -22,7 +24,7 @@ public class RacerParser {
     }
 
     private void checkStringFormat(String string) {
-        if (!Pattern.matches(".{3}_.+_.+", string)) {
+        if (!Pattern.matches("[A-Z]{3}_.+_.+", string)) {
             throw new IllegalArgumentException("Wrong string format");
         }
     }
