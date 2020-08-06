@@ -1,35 +1,16 @@
-package com.foxminded;
+package com.foxminded.racer;
 
-import java.time.LocalTime;
 import java.util.Objects;
 
 public class Racer {
     private final String abbreviation;
     private final String fullName;
     private final String teamName;
-    private LocalTime startTime;
-    private LocalTime endTime;
 
     public Racer(String abbreviation, String fullName, String teamName) {
         this.abbreviation = abbreviation;
         this.fullName = fullName;
         this.teamName = teamName;
-    }
-
-    public Racer(String abbreviation, String fullName, String teamName, LocalTime startTime, LocalTime endTime) {
-        this.abbreviation = abbreviation;
-        this.fullName = fullName;
-        this.teamName = teamName;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
     }
 
     public String getAbbreviation() {
@@ -42,14 +23,6 @@ public class Racer {
 
     public String getTeamName() {
         return teamName;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
     }
 
     @Override
