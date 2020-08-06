@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RacerParser {
+public class RacerParser implements Parser<Racer> {
     private static final String DELIMITER = "_";
 
     public Map<String, Racer> parse(Stream<String> stringStream) {
