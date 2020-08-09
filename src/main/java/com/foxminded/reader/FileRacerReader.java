@@ -25,7 +25,7 @@ public class FileRacerReader implements RacerReader {
             stringStream = Files.lines(path);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
         return stringStream;
     }
