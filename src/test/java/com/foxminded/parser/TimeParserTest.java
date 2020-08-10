@@ -18,12 +18,12 @@ class TimeParserTest extends AbstractParserTest {
         this.timeParser = new TimeParser();
     }
 
-    @Test
+    /*@Test
     void parse_shouldThrowIllegalArgumentException_whenWrongStringFormat() {
         Stream<String> stringStream = Stream.of("NHR2018-05-24_12:04:02.979", "wrong sting");
 
         assertThrows(IllegalArgumentException.class, () -> timeParser.parse(stringStream));
-    }
+    }*/
 
     @Test
     void parse_shouldReturnCorrectResult_whenCorrectStringFormat() {
