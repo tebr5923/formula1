@@ -6,7 +6,7 @@ import java.time.LocalTime;
 
 public class RacerResult {
     // might be static?
-    LocalTime compute(LocalDateTime endTime, LocalDateTime startTime) {
+    public LocalTime compute(LocalDateTime endTime, LocalDateTime startTime) {
         return LocalTime
                 .ofNanoOfDay(Duration
                         .between(endTime, startTime)
