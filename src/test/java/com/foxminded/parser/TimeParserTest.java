@@ -9,25 +9,11 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TimeParserTest extends AbstractParserTest {
-    //private final TimeParser timeParser;
-
-   /* public TimeParserTest() {
-        this.timeParser = new TimeParser();
-    }*/
-
     public TimeParserTest() {
-        super( new TimeParser());
+        super(new TimeParser());
     }
-
-    /*@Test
-    void parse_shouldThrowIllegalArgumentException_whenWrongStringFormat() {
-        Stream<String> stringStream = Stream.of("NHR2018-05-24_12:04:02.979", "wrong sting");
-
-        assertThrows(IllegalArgumentException.class, () -> timeParser.parse(stringStream));
-    }*/
 
     @Test
     void parse_shouldReturnCorrectResult_whenCorrectStringFormat() {
@@ -40,7 +26,6 @@ class TimeParserTest extends AbstractParserTest {
         expected.put("FAM", new RacerTime("FAM", alonsoTime));
 
         Stream<String> stringStream = Stream.of(vettel, alonso);
-        //Map<String, RacerTime> actual = timeParser.parse(stringStream);
         Map<String, ?> actual = parser.parse(stringStream);
 
         assertEquals(expected, actual);
