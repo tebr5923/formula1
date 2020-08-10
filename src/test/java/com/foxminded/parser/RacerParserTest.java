@@ -11,10 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RacerParserTest extends AbstractParserTest{
-    private final RacerParser racerParser;
+    //private final RacerParser racerParser;
+
+    /*public RacerParserTest() {
+        this.racerParser = new RacerParser();
+    }*/
 
     public RacerParserTest() {
-        this.racerParser = new RacerParser();
+        super(new RacerParser());
     }
 
     /*@Test
@@ -33,7 +37,8 @@ class RacerParserTest extends AbstractParserTest{
         expected.put("FAM", new Racer("FAM", "Fernando Alonso", "MCLAREN RENAULT"));
 
         Stream<String> stringStream = Stream.of(vettel, alonso);
-        Map<String, Racer> actual = racerParser.parse(stringStream);
+        //Map<String, Racer> actual = racerParser.parse(stringStream);
+        Map<String, ?> actual = parser.parse(stringStream);
 
         assertEquals(expected, actual);
     }

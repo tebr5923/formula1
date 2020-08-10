@@ -22,5 +22,4 @@ public class FileRacerReader implements RacerReader {
                 .toURI());
         return Files.lines(path);
     }
-
 }
