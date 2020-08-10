@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class FileRacerReader implements RacerReader {
@@ -14,19 +15,11 @@ public class FileRacerReader implements RacerReader {
         this.fileName = fileName;
     }
 
-    public Stream<String> read() {
-        Stream<String> stringStream = Stream.empty();
-
-        try {
-            Path path = Paths.get(this.getClass()
-                    .getClassLoader()
-                    .getResource(fileName)
-                    .toURI());
-            stringStream = Files.lines(path);
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException(e);
-        }
-        return stringStream;
+    public Stream<String> read() throws IOException, URISyntaxException {
+        Path path = Paths.get(Objects.requireNonNull(this.getClass()
+                .getClassLoader()
+                .getResource(fileName))
+                .toURI());
+        return Files.lines(path);
     }
 }
