@@ -8,14 +8,14 @@ import java.util.stream.Collectors;
 
 public class RacerLapsCreator {
     private final Map<String, Racer> racers;
-    private final Map<String, RacerTime> endTimes;
     private final Map<String, RacerTime> startTimes;
+    private final Map<String, RacerTime> endTimes;
     private Map<String, RacerLap> racerLaps;
 
-    public RacerLapsCreator(Map<String, Racer> racers, Map<String, RacerTime> endTimes, Map<String, RacerTime> startTimes) {
+    public RacerLapsCreator(Map<String, Racer> racers, Map<String, RacerTime> startTimes, Map<String, RacerTime> endTimes) {
         this.racers = racers;
-        this.endTimes = endTimes;
         this.startTimes = startTimes;
+        this.endTimes = endTimes;
     }
 
     public Map<String, RacerLap> getRacerLaps() {
