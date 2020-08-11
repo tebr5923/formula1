@@ -8,10 +8,20 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class RacerParserTest extends AbstractParserTest{
+class RacerParserTest {
+    private final RacerParser racerParser;
+
     public RacerParserTest() {
-        super(new RacerParser());
+        this.racerParser = new RacerParser();
+    }
+
+    @Test
+    void parse_shouldThrowIllegalArgumentException_whenWrongStringFormat() {
+        Stream<String> stringStream = Stream.of("ths_correct_string", "wrong sting");
+
+        assertThrows(IllegalArgumentException.class, () -> racerParser.parse(stringStream));
     }
 
     @Test
@@ -23,7 +33,7 @@ class RacerParserTest extends AbstractParserTest{
         expected.put("FAM", new Racer("FAM", "Fernando Alonso", "MCLAREN RENAULT"));
 
         Stream<String> stringStream = Stream.of(vettel, alonso);
-        Map<String, ?> actual = parser.parse(stringStream);
+        Map<String, Racer> actual = racerParser.parse(stringStream);
 
         assertEquals(expected, actual);
     }
