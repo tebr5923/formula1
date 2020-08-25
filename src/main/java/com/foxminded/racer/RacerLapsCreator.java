@@ -22,13 +22,14 @@ public class RacerLapsCreator {
         return racers
                 .values()
                 .stream()
-                .map(racer -> createRacerLap(racer, computeLapResult(
-                        startTimes.get(racer.getAbbreviation()).getLocalDateTime(),
-                        endTimes.get(racer.getAbbreviation()).getLocalDateTime())))
+                .map(this::createRacerLap)
                 .collect(Collectors.toList());
     }
 
-    private RacerLap createRacerLap(Racer racer, LocalTime lapResult) {
+    private RacerLap createRacerLap(Racer racer) {
+        LocalTime lapResult = computeLapResult(
+                startTimes.get(racer.getAbbreviation()).getLocalDateTime(),
+                endTimes.get(racer.getAbbreviation()).getLocalDateTime());
         return new RacerLap(racer, lapResult);
     }
 
