@@ -3,6 +3,7 @@ package com.foxminded.racer;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -10,7 +11,7 @@ public class RacerLapsCreator {
     private final Map<String, Racer> racers;
     private final Map<String, RacerTime> startTimes;
     private final Map<String, RacerTime> endTimes;
-    private Map<String, RacerLap> racerLaps;
+    private List<RacerLap> racerLaps;
 
     public RacerLapsCreator(Map<String, Racer> racers, Map<String, RacerTime> startTimes, Map<String, RacerTime> endTimes) {
         this.racers = racers;
@@ -18,7 +19,7 @@ public class RacerLapsCreator {
         this.endTimes = endTimes;
     }
 
-    public Map<String, RacerLap> getRacerLaps() {
+    public List<RacerLap> getRacerLaps() {
         if (racerLaps == null) {
             createRacerLaps();
         }
@@ -32,11 +33,12 @@ public class RacerLapsCreator {
                 .collect(Collectors
                         .toMap(Map.Entry::getKey, v -> computeLapResult(v.getValue().getLocalDateTime()
                                 , endTimes.get(v.getKey()).getLocalDateTime())));
+
         racerLaps = racers
                 .entrySet()
                 .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, v -> createRacerLap(v.getValue()
-                        , racerLapResults.get(v.getKey()))));
+                .map(racer -> createRacerLap(racer.getValue(), racerLapResults.get(racer.getKey())))
+                .collect(Collectors.toList());
     }
 
     private RacerLap createRacerLap(Racer racer, LocalTime lapResult) {
