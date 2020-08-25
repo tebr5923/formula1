@@ -11,7 +11,6 @@ public class RacerLapsCreator {
     private final Map<String, Racer> racers;
     private final Map<String, RacerTime> startTimes;
     private final Map<String, RacerTime> endTimes;
-    private List<RacerLap> racerLaps;
 
     public RacerLapsCreator(Map<String, Racer> racers, Map<String, RacerTime> startTimes, Map<String, RacerTime> endTimes) {
         this.racers = racers;
@@ -19,14 +18,7 @@ public class RacerLapsCreator {
         this.endTimes = endTimes;
     }
 
-    public List<RacerLap> getRacerLaps() {
-        if (racerLaps == null) {
-            createRacerLaps();
-        }
-        return racerLaps;
-    }
-
-    private void createRacerLaps() {
+    public List<RacerLap> createRacerLaps() {
         Map<String, LocalTime> racerLapResults = startTimes
                 .entrySet()
                 .stream()
@@ -34,7 +26,7 @@ public class RacerLapsCreator {
                         .toMap(Map.Entry::getKey, v -> computeLapResult(v.getValue().getLocalDateTime()
                                 , endTimes.get(v.getKey()).getLocalDateTime())));
 
-        racerLaps = racers
+        return racers
                 .entrySet()
                 .stream()
                 .map(racer -> createRacerLap(racer.getValue(), racerLapResults.get(racer.getKey())))

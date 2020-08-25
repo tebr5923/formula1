@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RacerLapsCreatorTest {
 
     @Test
-    void getRacerLaps_shouldReturnCorrectResult() {
+    void createRacerLaps_shouldReturnCorrectResult() {
         Map<String, Racer> racers = new HashMap<>();
         racers.put("SVF", new Racer("SVF", "Sebastian Vettel", "FERRARI"));
         racers.put("FAM", new Racer("FAM", "Fernando Alonso", "MCLAREN RENAULT"));
@@ -29,7 +29,7 @@ class RacerLapsCreatorTest {
         endTimes.put("SVF", new RacerTime("SVF", LocalDateTime.of(2018, 5, 24, 12, 4, 3, 332000000)));
         endTimes.put("FAM", new RacerTime("FAM", LocalDateTime.of(2018, 5, 24, 12, 14, 17, 169000000)));
         RacerLapsCreator racerLapsCreator = new RacerLapsCreator(racers, startTimes, endTimes);
-        List<RacerLap> actual = racerLapsCreator.getRacerLaps();
+        List<RacerLap> actual = racerLapsCreator.createRacerLaps();
 
         assertEquals(expected, actual);
     }
