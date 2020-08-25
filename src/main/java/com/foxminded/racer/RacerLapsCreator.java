@@ -19,17 +19,12 @@ public class RacerLapsCreator {
     }
 
     public List<RacerLap> createRacerLaps() {
-        Map<String, LocalTime> racerLapResults = startTimes
-                .entrySet()
-                .stream()
-                .collect(Collectors
-                        .toMap(Map.Entry::getKey, v -> computeLapResult(v.getValue().getLocalDateTime()
-                                , endTimes.get(v.getKey()).getLocalDateTime())));
-
         return racers
-                .entrySet()
+                .values()
                 .stream()
-                .map(racer -> createRacerLap(racer.getValue(), racerLapResults.get(racer.getKey())))
+                .map(racer -> createRacerLap(racer, computeLapResult(
+                        startTimes.get(racer.getAbbreviation()).getLocalDateTime(),
+                        endTimes.get(racer.getAbbreviation()).getLocalDateTime())))
                 .collect(Collectors.toList());
     }
 
