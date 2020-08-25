@@ -27,10 +27,9 @@ public class RacerLapsCreator {
     }
 
     private RacerLap createRacerLap(Racer racer) {
-        LocalTime lapResult = computeLapResult(
+        return new RacerLap(racer, computeLapResult(
                 startTimes.get(racer.getAbbreviation()).getLocalDateTime(),
-                endTimes.get(racer.getAbbreviation()).getLocalDateTime());
-        return new RacerLap(racer, lapResult);
+                endTimes.get(racer.getAbbreviation()).getLocalDateTime()));
     }
 
     private LocalTime computeLapResult(LocalDateTime startTime, LocalDateTime endTime) {
