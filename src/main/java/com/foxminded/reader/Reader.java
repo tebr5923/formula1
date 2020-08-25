@@ -5,6 +5,6 @@ import java.net.URISyntaxException;
 import java.util.stream.Stream;
 
 @FunctionalInterface
-public interface RacerReader {
+public interface Reader {
     Stream<String> read() throws IOException, URISyntaxException;
 }

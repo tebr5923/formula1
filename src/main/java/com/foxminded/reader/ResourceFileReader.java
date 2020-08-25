@@ -8,10 +8,10 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class FileRacerReader implements RacerReader {
+public class ResourceFileReader implements Reader {
     private final String fileName;
 
-    public FileRacerReader(String fileName) {
+    public ResourceFileReader(String fileName) {
         this.fileName = fileName;
     }
 
