@@ -25,15 +25,19 @@ public class DefaultRacerLapsFactory implements RacerLapsFactory {
 
     @Override
     public List<RacerLap> create(String abbreviationFileName, String startTimeFileName, String endTimeFileName) throws IOException, URISyntaxException {
-        Map<String, Racer> racers = racerParser.parse(reader.read(abbreviationFileName));
-        Map<String, RacerTime> startTimes = timeParser.parse(reader.read(startTimeFileName));
-        Map<String, RacerTime> endTimes = timeParser.parse(reader.read(endTimeFileName));
+        Map<String, Racer> racers = parseFile(abbreviationFileName, racerParser);
+        Map<String, RacerTime> startTimes = parseFile(startTimeFileName, timeParser);
+        Map<String, RacerTime> endTimes = parseFile(endTimeFileName, timeParser);
 
         return racers
                 .values()
                 .stream()
                 .map(racer -> createRacerLap(racer, startTimes, endTimes))
                 .collect(Collectors.toList());
+    }
+
+    private <T> Map<String, T> parseFile(String filename, Parser<T> parser) throws IOException, URISyntaxException {
+        return parser.parse(reader.read(filename));
     }
 
     private RacerLap createRacerLap(Racer racer, Map<String, RacerTime> startTimes, Map<String, RacerTime> endTimes) {
