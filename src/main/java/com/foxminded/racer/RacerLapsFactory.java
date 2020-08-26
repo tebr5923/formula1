@@ -38,8 +38,8 @@ public class RacerLapsFactory {
     }
 
     private Stream<String> read(String fileName) throws IOException, URISyntaxException {
-        Reader reader = new ResourceFileReader(fileName);
-        return reader.read();
+        Reader reader = new ResourceFileReader();
+        return reader.read(fileName);
     }
 
     private Map<String, Racer> parseRacer(Stream<String> stringStreamRacers) {

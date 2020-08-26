@@ -6,5 +6,5 @@ import java.util.stream.Stream;
 
 @FunctionalInterface
 public interface Reader {
-    Stream<String> read() throws IOException, URISyntaxException;
+    Stream<String> read(String fileName) throws IOException, URISyntaxException;
 }
