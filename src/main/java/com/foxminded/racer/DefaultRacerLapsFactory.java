@@ -1,10 +1,7 @@
 package com.foxminded.racer;
 
 import com.foxminded.parser.Parser;
-import com.foxminded.parser.RacerParser;
-import com.foxminded.parser.TimeParser;
 import com.foxminded.reader.Reader;
-import com.foxminded.reader.ResourceFileReader;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -20,10 +17,10 @@ public class DefaultRacerLapsFactory implements RacerLapsFactory {
     private final Parser<RacerTime> timeParser;
     private final Reader reader;
 
-    public DefaultRacerLapsFactory() {
-        this.racerParser = new RacerParser();
-        this.timeParser = new TimeParser();
-        this.reader = new ResourceFileReader();
+    public DefaultRacerLapsFactory(Parser<Racer> racerParser, Parser<RacerTime> timeParser, Reader reader) {
+        this.racerParser = racerParser;
+        this.timeParser = timeParser;
+        this.reader = reader;
     }
 
     @Override
