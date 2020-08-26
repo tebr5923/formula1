@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RacerLapsFactoryTest {
+class DefaultRacerLapsFactoryTest {
 
     @Test
     void create_shouldReturnCorrectResult() throws IOException, URISyntaxException {
@@ -20,7 +20,7 @@ class RacerLapsFactoryTest {
         expected.add(racerLapBuilder.build("SVF", "Sebastian Vettel", "FERRARI", LocalTime.of(0, 1, 4, 415000000)));
         expected.add(racerLapBuilder.build("FAM", "Fernando Alonso", "MCLAREN RENAULT", LocalTime.of(0, 1, 12, 657000000)));
 
-        DefaultRacerLapsFactory racerLapsFactory = new RacerLapsFactory();
+        RacerLapsFactory racerLapsFactory = new DefaultRacerLapsFactory();
         List<RacerLap> actual = racerLapsFactory.create("abbreviations.txt", "start.log", "end.log");
 
         assertEquals(expected, actual);
