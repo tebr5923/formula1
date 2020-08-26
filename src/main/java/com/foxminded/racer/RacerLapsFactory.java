@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class RacerLapsFactory {
+public class RacerLapsFactory implements DefaultRacerLapsFactory {
     private final Parser<Racer> racerParser;
     private final Parser<RacerTime> timeParser;
     private final Reader reader;
@@ -26,6 +26,7 @@ public class RacerLapsFactory {
         this.reader = new ResourceFileReader();
     }
 
+    @Override
     public List<RacerLap> create(String abbreviationFileName, String startTimeFileName, String endTimeFileName) throws IOException, URISyntaxException {
         Map<String, Racer> racers = racerParser.parse(reader.read(abbreviationFileName));
         Map<String, RacerTime> startTimes = timeParser.parse(reader.read(startTimeFileName));
