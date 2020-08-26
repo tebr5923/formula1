@@ -2,6 +2,7 @@ package com.foxminded.racer;
 
 import com.foxminded.parser.RacerParser;
 import com.foxminded.parser.TimeParser;
+import com.foxminded.reader.Reader;
 import com.foxminded.reader.ResourceFileReader;
 
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.net.URISyntaxException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,10 +17,9 @@ import java.util.stream.Stream;
 
 public class RacerLapsFactory {
     public List<RacerLap> create(String abbreviationFileName, String startTimeFileName, String endTimeFileName) throws IOException, URISyntaxException {
-        Map<String, Stream<String>> readResult = read(abbreviationFileName, startTimeFileName, endTimeFileName);
-        Map<String, Racer> racers = parseRacer(readResult.get("racers"));
-        Map<String, RacerTime> startTimes = parseRacerTime(readResult.get("startTimes"));
-        Map<String, RacerTime> endTimes = parseRacerTime(readResult.get("endTimes"));
+        Map<String, Racer> racers = parseRacer(read(abbreviationFileName));
+        Map<String, RacerTime> startTimes = parseRacerTime(read(startTimeFileName));
+        Map<String, RacerTime> endTimes = parseRacerTime(read(endTimeFileName));
 
         return racers
                 .values()
@@ -29,12 +28,9 @@ public class RacerLapsFactory {
                 .collect(Collectors.toList());
     }
 
-    private Map<String, Stream<String>> read(String abbreviationFileName, String startTimeFileName, String endTimeFileName) throws IOException, URISyntaxException {
-        Map<String, Stream<String>> result = new HashMap<>();
-        result.put("racers", new ResourceFileReader(abbreviationFileName).read());
-        result.put("startTimes", new ResourceFileReader(startTimeFileName).read());
-        result.put("endTimes", new ResourceFileReader(endTimeFileName).read());
-        return result;
+    private Stream<String> read(String fileName) throws IOException, URISyntaxException {
+        Reader reader = new ResourceFileReader(fileName);
+        return reader.read();
     }
 
     private Map<String, Racer> parseRacer(Stream<String> stringStreamRacers) {
