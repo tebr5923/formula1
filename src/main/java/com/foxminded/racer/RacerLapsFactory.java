@@ -1,5 +1,6 @@
 package com.foxminded.racer;
 
+import com.foxminded.parser.Parser;
 import com.foxminded.parser.RacerParser;
 import com.foxminded.parser.TimeParser;
 import com.foxminded.reader.Reader;
@@ -16,6 +17,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RacerLapsFactory {
+    private final Parser<Racer> racerParser;
+    private final Parser<RacerTime> timeParser;
+
+    public RacerLapsFactory() {
+        this.racerParser = new RacerParser();
+        this.timeParser = new TimeParser();
+    }
+
     public List<RacerLap> create(String abbreviationFileName, String startTimeFileName, String endTimeFileName) throws IOException, URISyntaxException {
         Map<String, Racer> racers = parseRacer(read(abbreviationFileName));
         Map<String, RacerTime> startTimes = parseRacerTime(read(startTimeFileName));
@@ -34,11 +43,11 @@ public class RacerLapsFactory {
     }
 
     private Map<String, Racer> parseRacer(Stream<String> stringStreamRacers) {
-        return new RacerParser().parse(stringStreamRacers);
+        return racerParser.parse(stringStreamRacers);
     }
 
     private Map<String, RacerTime> parseRacerTime(Stream<String> stringStreamTimes) {
-        return new TimeParser().parse(stringStreamTimes);
+        return timeParser.parse(stringStreamTimes);
     }
 
     private RacerLap createRacerLap(Racer racer, Map<String, RacerTime> startTimes, Map<String, RacerTime> endTimes) {
@@ -53,5 +62,4 @@ public class RacerLapsFactory {
                         .between(startTime, endTime)
                         .toNanos());
     }
-
 }
