@@ -6,8 +6,10 @@ import com.foxminded.util.RacerLapBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
@@ -38,8 +40,12 @@ class DefaultRacerLapsFactoryTest {
     @Mock
     private Reader mockResourceFileReader;
 
+    @InjectMocks
+    private DefaultRacerLapsFactory racerLapsFactory;
+
     @BeforeEach
     void setUp() throws IOException, URISyntaxException {
+        MockitoAnnotations.initMocks(this);
         setMockRacer();
         setMockStartTime();
         setMockEndTime();
@@ -52,7 +58,7 @@ class DefaultRacerLapsFactoryTest {
         expected.add(racerLapBuilder.build("SVF", "Sebastian Vettel", "FERRARI", LocalTime.of(0, 1, 4, 415000000)));
         expected.add(racerLapBuilder.build("FAM", "Fernando Alonso", "MCLAREN RENAULT", LocalTime.of(0, 1, 12, 657000000)));
 
-        RacerLapsFactory racerLapsFactory = new DefaultRacerLapsFactory(mockRacerParser, mockRacerTimeParser, mockResourceFileReader);
+        //RacerLapsFactory racerLapsFactory = new DefaultRacerLapsFactory(mockRacerParser, mockRacerTimeParser, mockResourceFileReader);
         List<RacerLap> actual = racerLapsFactory.create(ABBREVIATIONS, START_LOG, END_LOG);
 
         assertEquals(expected, actual);
