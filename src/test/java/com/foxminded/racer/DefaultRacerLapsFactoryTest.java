@@ -63,8 +63,7 @@ class DefaultRacerLapsFactoryTest {
         Map<String, Racer> racerMap = new HashMap<>();
         racerMap.put("SVF", new Racer("SVF", "Sebastian Vettel", "FERRARI"));
         racerMap.put("FAM", new Racer("FAM", "Fernando Alonso", "MCLAREN RENAULT"));
-        when(mockRacerParser.parse(Mockito.eq(racerStringStream))).thenReturn(racerMap);
-        when(mockResourceFileReader.read(Mockito.eq(ABBREVIATIONS))).thenReturn(racerStringStream);
+        setMockReturn(mockRacerParser, racerStringStream, racerMap, ABBREVIATIONS);
     }
 
     private void setMockStartTime() throws IOException, URISyntaxException {
@@ -72,8 +71,7 @@ class DefaultRacerLapsFactoryTest {
         Map<String, RacerTime> startRacerTimeMap = new HashMap<>();
         startRacerTimeMap.put("SVF", new RacerTime("SVF", LocalDateTime.of(2018, 5, 24, 12, 2, 58, 917000000)));
         startRacerTimeMap.put("FAM", new RacerTime("FAM", LocalDateTime.of(2018, 5, 24, 12, 13, 4, 512000000)));
-        when(mockRacerTimeParser.parse(Mockito.eq(startTimesStringStream))).thenReturn(startRacerTimeMap);
-        when(mockResourceFileReader.read(Mockito.eq(START_LOG))).thenReturn(startTimesStringStream);
+        setMockReturn(mockRacerTimeParser, startTimesStringStream, startRacerTimeMap, START_LOG);
     }
 
     private void setMockEndTime() throws IOException, URISyntaxException {
@@ -81,7 +79,11 @@ class DefaultRacerLapsFactoryTest {
         Map<String, RacerTime> endRacerTimeMap = new HashMap<>();
         endRacerTimeMap.put("SVF", new RacerTime("SVF", LocalDateTime.of(2018, 5, 24, 12, 4, 3, 332000000)));
         endRacerTimeMap.put("FAM", new RacerTime("FAM", LocalDateTime.of(2018, 5, 24, 12, 14, 17, 169000000)));
-        when(mockRacerTimeParser.parse(Mockito.eq(endTimesStringStream))).thenReturn(endRacerTimeMap);
-        when(mockResourceFileReader.read(Mockito.eq(END_LOG))).thenReturn(endTimesStringStream);
+        setMockReturn(mockRacerTimeParser, endTimesStringStream, endRacerTimeMap, END_LOG);
+    }
+
+    private <T> void setMockReturn(Parser<T> parser, Stream<String> stringStream, Map<String, T> map, String fileName) throws IOException, URISyntaxException {
+        when(parser.parse(Mockito.eq(stringStream))).thenReturn(map);
+        when(mockResourceFileReader.read(Mockito.eq(fileName))).thenReturn(stringStream);
     }
 }
