@@ -12,6 +12,14 @@ public class RacerLap {
         this.racerResult = racerResult;
     }
 
+    public Racer getRacer() {
+        return racer;
+    }
+
+    public LocalTime getRacerResult() {
+        return racerResult;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
