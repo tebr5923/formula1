@@ -70,11 +70,7 @@ public class RacerLapFormatter implements Formatter<RacerLap> {
     }
 
     private String formatPosition(int position) {
-        String positionAsString = position + ".";
-        if (position <= 9) {
-            positionAsString = " " + positionAsString;
-        }
-        return positionAsString;
+        return String.format("%2d%s", position, ".");
     }
 
     private String repeatChar(char ch, int times) {
