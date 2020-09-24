@@ -18,8 +18,7 @@ public class RacerParser implements Parser<Racer> {
 
     private Racer parseRacer(String string) {
         checkStringFormat(string);
-        String[] strings = string
-                .split(DELIMITER, -1);
+        String[] strings = string.split(DELIMITER, -1);
         return new Racer(strings[0], strings[1], strings[2]);
     }
 
