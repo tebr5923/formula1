@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RacerLapFormatter implements Formatter<RacerLap> {
     private static final int FIRST_ROUND_QUALIFIED_POSITION = 15;
@@ -24,15 +25,15 @@ public class RacerLapFormatter implements Formatter<RacerLap> {
 
     @Override
     public List<String> format(List<RacerLap> inputList) {
-        inputList.sort(Comparator.comparing(RacerLap::getRacerResult));
+        List<RacerLap> sortedList = inputList.stream().sorted(Comparator.comparing(RacerLap::getRacerResult)).collect(Collectors.toList());
         RacerLap emptyRacerLap = new RacerLap(new Racer("empty", "", ""), LocalTime.now());
-        int maxFullNameLength = inputList.stream()
+        int maxFullNameLength = sortedList.stream()
                 .max(Comparator.comparing(racerLap -> racerLap.getRacer().getFullName().length()))
                 .orElse(emptyRacerLap)
                 .getRacer()
                 .getFullName()
                 .length();
-        int maxTeamNameLength = inputList.stream()
+        int maxTeamNameLength = sortedList.stream()
                 .max(Comparator.comparing(racerLap -> racerLap.getRacer().getTeamName().length()))
                 .orElse(emptyRacerLap)
                 .getRacer()
@@ -41,7 +42,7 @@ public class RacerLapFormatter implements Formatter<RacerLap> {
         int maxStringLength = 0;
         int position = 1;
         List<String> stringList = new ArrayList<>();
-        for (RacerLap racerLap : inputList) {
+        for (RacerLap racerLap : sortedList) {
             String string = formatRacerLap(racerLap, position, maxFullNameLength, maxTeamNameLength);
             stringList.add(string);
             if (maxStringLength < string.length()) {
