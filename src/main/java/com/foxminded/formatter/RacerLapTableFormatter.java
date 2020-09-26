@@ -60,6 +60,17 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
     }
 
     private String formatRacerLap(RacerLap racerLap, int position, int maxFullNameLength, int maxTeamNameLength) {
+       /* String positionAsString = formatPosition(position);
+        String positionAndFullName = String.format("%s %s", positionAsString, racerLap.getRacer().getFullName());
+        int maxPositionAndFullNameLength = maxFullNameLength + positionAsString.length();
+        String firstColumn = String.format("%s %s", positionAndFullName, repeatChar(' ', maxPositionAndFullNameLength - positionAndFullName.length() + 1));
+        String teamName = String.format("%s %s", racerLap.getRacer().getTeamName(), repeatChar(' ', maxTeamNameLength - racerLap.getRacer().getTeamName().length()));
+        return String.format("%s| %s| %s",
+                firstColumn,
+                teamName,
+                racerLap.getRacerResult().format(DateTimeFormatter.ofPattern("mm:ss.SSS"))
+        );*/
+
         String fullName = String.format("%s %s", racerLap.getRacer().getFullName(), repeatChar(' ', maxFullNameLength - racerLap.getRacer().getFullName().length()));
         String teamName = String.format("%s %s", racerLap.getRacer().getTeamName(), repeatChar(' ', maxTeamNameLength - racerLap.getRacer().getTeamName().length()));
         return String.format("%s %s| %s| %s",
@@ -71,7 +82,7 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
     }
 
     private String formatPosition(int position) {
-        return String.format("%2d%s", position, ".");
+        return String.format("%d%s", position, ".");
     }
 
     private String repeatChar(char ch, int times) {
