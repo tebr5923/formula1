@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RacerLapFormatterTest {
+class RacerLapTableFormatterTest {
 
     @Test
     void format_shouldReturnCorrectResult() {
@@ -30,8 +30,8 @@ class RacerLapFormatterTest {
         racerLapList.add(racerLapBuilder.build("SVF", "Sebastian Vettel", "FERRARI", LocalTime.of(0, 1, 4, 415000000)));
         racerLapList.add(racerLapBuilder.build("KRF", "Kimi Raikkonen", "FERRARI", LocalTime.of(0, 1, 12, 655000000)));
 
-        RacerLapFormatter racerLapFormatter = new RacerLapFormatter(3);
-        List<String> actual = racerLapFormatter.format(racerLapList);
+        RacerLapTableFormatter racerLapTableFormatter = new RacerLapTableFormatter(3);
+        List<String> actual = racerLapTableFormatter.format(racerLapList);
 
         assertEquals(expected, actual);
     }
@@ -54,8 +54,8 @@ class RacerLapFormatterTest {
         racerLapList.add(racerLapBuilder.build("SVF", "Sebastian Vettel", "FERRARI", LocalTime.of(0, 1, 4, 415000000)));
         racerLapList.add(racerLapBuilder.build("KRF", "Kimi Raikkonen", "FERRARI", LocalTime.of(0, 1, 12, 655000000)));
 
-        RacerLapFormatter racerLapFormatter = new RacerLapFormatter(7);
-        List<String> actual = racerLapFormatter.format(racerLapList);
+        RacerLapTableFormatter racerLapTableFormatter = new RacerLapTableFormatter(7);
+        List<String> actual = racerLapTableFormatter.format(racerLapList);
 
         assertEquals(expected, actual);
     }

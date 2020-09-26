@@ -15,10 +15,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RacerLapFormatterIntegrationTest {
-    private static final String ABBREVIATIONS = "racer_lap_formatter_integration_test/abbreviations.txt";
-    private static final String START_LOG = "racer_lap_formatter_integration_test/start.log";
-    private static final String END_LOG = "racer_lap_formatter_integration_test/end.log";
+class RacerLapTableFormatterIntegrationTest {
+    private static final String ABBREVIATIONS = "racer_lap_table_formatter_integration_test/abbreviations.txt";
+    private static final String START_LOG = "racer_lap_table_formatter_integration_test/start.log";
+    private static final String END_LOG = "racer_lap_table_formatter_integration_test/end.log";
 
     @Test
     void format_shouldReturnCorrectResult() throws IOException, URISyntaxException {
@@ -46,8 +46,8 @@ class RacerLapFormatterIntegrationTest {
 
         RacerLapsFactory racerLapsFactory = new DefaultRacerLapsFactory(new RacerParser(), new TimeParser(), new ResourceFileReader());
         List<RacerLap> racerLapList = racerLapsFactory.create(ABBREVIATIONS, START_LOG, END_LOG);
-        RacerLapFormatter racerLapFormatter = new RacerLapFormatter();
-        List<String> actual = racerLapFormatter.format(racerLapList);
+        RacerLapTableFormatter racerLapTableFormatter = new RacerLapTableFormatter();
+        List<String> actual = racerLapTableFormatter.format(racerLapList);
 
         assertEquals(expected, actual);
     }

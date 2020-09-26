@@ -11,15 +11,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RacerLapFormatter implements Formatter<RacerLap> {
+public class RacerLapTableFormatter implements Formatter<RacerLap> {
     private static final int FIRST_ROUND_QUALIFIED_POSITION = 15;
     private final int qualifiedPosition;
 
-    public RacerLapFormatter() {
+    public RacerLapTableFormatter() {
         this(FIRST_ROUND_QUALIFIED_POSITION);
     }
 
-    public RacerLapFormatter(int qualifiedPosition) {
+    public RacerLapTableFormatter(int qualifiedPosition) {
         this.qualifiedPosition = qualifiedPosition;
     }
 
