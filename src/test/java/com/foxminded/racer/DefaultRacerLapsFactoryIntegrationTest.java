@@ -15,6 +15,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DefaultRacerLapsFactoryIntegrationTest {
+    private static final String ABBREVIATIONS = "racer_test/abbreviations.txt";
+    private static final String START_LOG = "racer_test/start.log";
+    private static final String END_LOG = "racer_test/end.log";
 
     @Test
     void create_shouldReturnCorrectResult() throws IOException, URISyntaxException {
@@ -24,7 +27,7 @@ class DefaultRacerLapsFactoryIntegrationTest {
         expected.add(racerLapBuilder.build("FAM", "Fernando Alonso", "MCLAREN RENAULT", LocalTime.of(0, 1, 12, 657000000)));
 
         RacerLapsFactory racerLapsFactory = new DefaultRacerLapsFactory(new RacerParser(), new TimeParser(), new ResourceFileReader());
-        List<RacerLap> actual = racerLapsFactory.create("abbreviations.txt", "start.log", "end.log");
+        List<RacerLap> actual = racerLapsFactory.create(ABBREVIATIONS, START_LOG, END_LOG);
 
         assertEquals(expected, actual);
     }

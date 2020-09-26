@@ -25,9 +25,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DefaultRacerLapsFactoryTest {
-    private static final String ABBREVIATIONS = "abbreviations.txt";
-    private static final String START_LOG = "start.log";
-    private static final String END_LOG = "end.log";
+    private static final String ABBREVIATIONS = "racer_test/abbreviations.txt";
+    private static final String START_LOG = "racer_test/start.log";
+    private static final String END_LOG = "racer_test/end.log";
 
     @Mock
     private Parser<Racer> mockRacerParser;

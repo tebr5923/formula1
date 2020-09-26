@@ -16,6 +16,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RacerLapFormatterIntegrationTest {
+    private static final String ABBREVIATIONS = "racer_lap_formatter_integration_test/abbreviations.txt";
+    private static final String START_LOG = "racer_lap_formatter_integration_test/start.log";
+    private static final String END_LOG = "racer_lap_formatter_integration_test/end.log";
 
     @Test
     void format_shouldReturnCorrectResult() throws IOException, URISyntaxException {
@@ -42,7 +45,7 @@ class RacerLapFormatterIntegrationTest {
         expected.add("19. Kevin Magnussen   | HAAS FERRARI              | 01:13.393");
 
         RacerLapsFactory racerLapsFactory = new DefaultRacerLapsFactory(new RacerParser(), new TimeParser(), new ResourceFileReader());
-        List<RacerLap> racerLapList = racerLapsFactory.create("abb.txt", "st.log", "en.log");
+        List<RacerLap> racerLapList = racerLapsFactory.create(ABBREVIATIONS, START_LOG, END_LOG);
         RacerLapFormatter racerLapFormatter = new RacerLapFormatter();
         List<String> actual = racerLapFormatter.format(racerLapList);
 
