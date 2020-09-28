@@ -71,7 +71,8 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
     }
 
     private String formatPosition(int position, int maxPosition) {
-        int length = Integer.toString(maxPosition).length();
+        int length = (int) Math.ceil(Math.log10(Math.abs(maxPosition) + 0.5));
+
         String format = "%0" + length + "d%s";
         return String.format(format, position, ".");
     }
