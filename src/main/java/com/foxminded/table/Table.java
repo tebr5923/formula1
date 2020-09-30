@@ -5,9 +5,10 @@ public interface Table<T> {
 
     Row<T> getRaw(int i);
 
-    <S>S getRawCell(int i, int j);
+    <S>S getRawCell(int rowIndex, int cellIndex, Class<S> sClass);
 
+    Object getCell(int rowIndex, int cellIndex);
 
-    int getMaxCellLength(int j);
+    <R> int getMaxCellLength(int cellIndex, Class<R> rClass);
 
 }

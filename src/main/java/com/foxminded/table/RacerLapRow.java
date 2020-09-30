@@ -2,18 +2,18 @@ package com.foxminded.table;
 
 import com.foxminded.racer.RacerLap;
 
-public class RacerLapRow implements Row<RacerLap> {
-    private final int index;
+import java.util.Iterator;
+
+public class RacerLapRow implements Row<RacerLap>, Iterable<Object> {
     private final RacerLap racerLap;
 
-    public RacerLapRow(int index, RacerLap racerLap) {
-        this.index = index;
+    public RacerLapRow(RacerLap racerLap) {
         this.racerLap = racerLap;
     }
 
     @Override
-    public int getIndex() {
-        return index;
+    public Iterator<Object> iterator() {
+        return new RowIterator(this);
     }
 
     @Override
@@ -25,9 +25,6 @@ public class RacerLapRow implements Row<RacerLap> {
     public <R> R getCell(int index, Class<R> rClass) {
         final Object cell;
         switch (index) {
-            case 0:
-                cell = this.index;
-                break;
             case 1:
                 cell = racerLap.getRacer().getFullName();
                 break;
