@@ -14,7 +14,7 @@ public class RowIterator implements Iterator<Object> {
 
     @Override
     public boolean hasNext() {
-        return currentIndex < 3;
+        return currentIndex <= 3;
     }
 
     @Override
