@@ -39,4 +39,9 @@ public class RacerLapRow implements Row<RacerLap>, Iterable<Object> {
         }
         return rClass.cast(cell);
     }
+
+    @Override
+    public String toString() {
+        return racerLap.toString();
+    }
 }

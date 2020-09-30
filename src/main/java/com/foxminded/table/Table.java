@@ -1,6 +1,6 @@
 package com.foxminded.table;
 
-public interface Table<T> {
+public interface Table<T> extends Iterable<Row<T>>{
     T getRawRow(int i);
 
     Row<T> getRaw(int i);

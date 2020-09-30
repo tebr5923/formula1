@@ -1,6 +1,6 @@
 package com.foxminded.table;
 
-public interface Row<T> {
+public interface Row<T> extends Iterable<Object>{
 
     T getValue();
 
