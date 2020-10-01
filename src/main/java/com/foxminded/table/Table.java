@@ -1,6 +1,10 @@
 package com.foxminded.table;
 
+import java.util.List;
+
 public interface Table<T> extends Iterable<Row<T>>{
+    List<T> getListValue();
+
     T getRawRow(int i);
 
     Row<T> getRaw(int i);

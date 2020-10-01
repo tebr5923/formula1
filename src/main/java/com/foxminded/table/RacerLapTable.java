@@ -3,10 +3,8 @@ package com.foxminded.table;
 import com.foxminded.racer.RacerLap;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RacerLapTable implements Table<RacerLap>, Iterable<Row<RacerLap>> {
     private final List<RacerLap> racerLapList;
@@ -18,6 +16,11 @@ public class RacerLapTable implements Table<RacerLap>, Iterable<Row<RacerLap>> {
     @Override
     public Iterator<Row<RacerLap>> iterator() {
         return new RacerLapTableIterator(racerLapList);
+    }
+
+    @Override
+    public List<RacerLap> getListValue() {
+        return racerLapList;
     }
 
     @Override
@@ -78,17 +81,5 @@ public class RacerLapTable implements Table<RacerLap>, Iterable<Row<RacerLap>> {
                 .map(String::length)
                 .max(Integer::compareTo)
                 .orElse(0);
-
-       /*return Stream.generate(i -> getRawCell(i, cellIndex, rClass))
-                .limit(size)
-                .map(Object::toString)
-                .map(String::length)
-                .max(Integer::compareTo);*/
-    }
-
-    private List<RacerLap> sortByTime() {
-        return racerLapList.stream()
-                .sorted(Comparator.comparing(RacerLap::getRacerResult))
-                .collect(Collectors.toList());
     }
 }
