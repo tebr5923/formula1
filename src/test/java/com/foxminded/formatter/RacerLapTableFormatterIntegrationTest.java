@@ -46,8 +46,9 @@ class RacerLapTableFormatterIntegrationTest {
 
         RacerLapsFactory racerLapsFactory = new DefaultRacerLapsFactory(new RacerParser(), new TimeParser(), new ResourceFileReader());
         List<RacerLap> racerLapList = racerLapsFactory.create(ABBREVIATIONS, START_LOG, END_LOG);
-        RacerLapTableFormatter racerLapTableFormatter = new RacerLapTableFormatter();
-        List<String> actual = racerLapTableFormatter.format(racerLapList);
+        RacerLapFormatterRacerLapWithDelimiter racerLapFormatterRacerLapWithDelimiter =
+                new RacerLapFormatterRacerLapWithDelimiter(new RacerLapTableFormatter());
+        List<String> actual = racerLapFormatterRacerLapWithDelimiter.format(racerLapList);
 
         assertEquals(expected, actual);
     }
