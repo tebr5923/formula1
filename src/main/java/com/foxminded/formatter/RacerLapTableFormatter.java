@@ -72,7 +72,7 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
     //----------------------------------------------------------------------
     @Override
     public List<String> format(List<RacerLap> inputList) {
-        List<RacerLap> sortedList = inputList.stream().sorted(Comparator.comparing(RacerLap::getRacerResult)).collect(Collectors.toList());
+        List<RacerLap> sortedList = sortByResult(inputList);
         int maxFullNameLength = computeMaxNameLength(sortedList, Racer::getFullName);
         int maxTeamNameLength = computeMaxNameLength(sortedList, Racer::getTeamName);
         int maxStringLength = 0;
@@ -104,6 +104,12 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
                 teamName,
                 racerLap.getRacerResult().format(DateTimeFormatter.ofPattern("mm:ss.SSS"))
         );
+    }
+
+    private List<RacerLap> sortByResult(List<RacerLap> racerLaps) {
+        return racerLaps.stream()
+                .sorted(Comparator.comparing(RacerLap::getRacerResult))
+                .collect(Collectors.toList());
     }
 
     private int computeMaxNameLength(List<RacerLap> racerLaps, Function<Racer, String> function) {
