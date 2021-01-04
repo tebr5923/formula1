@@ -5,6 +5,8 @@ import java.util.List;
 public interface Table<T> extends Iterable<Row<T>>{
     List<T> getListValue();
 
+    int getNumberOfRows();
+
     T getRawRow(int i);
 
     Row<T> getRaw(int i);

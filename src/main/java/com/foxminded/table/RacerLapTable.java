@@ -19,6 +19,11 @@ public class RacerLapTable implements Table<RacerLap>, Iterable<Row<RacerLap>> {
     }
 
     @Override
+    public int getNumberOfRows() {
+        return racerLapList.size();
+    }
+
+    @Override
     public List<RacerLap> getListValue() {
         return racerLapList;
     }

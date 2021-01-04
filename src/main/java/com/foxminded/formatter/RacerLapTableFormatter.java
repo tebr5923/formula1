@@ -37,7 +37,7 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
         int position = 1;
         // method
         for (Row<RacerLap> row : sortedTable) {
-            String string = formatPosition(position, sortedTable.getListValue().size())
+            String string = formatPosition(position, sortedTable.getNumberOfRows())
                     + formatRow(row, maxFullNameLength, maxTeamNameLength);
             stringList.add(string);
             maxStringLength = Math.max(maxStringLength, string.length());
