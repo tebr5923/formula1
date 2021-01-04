@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class RacerLapTableFormatter implements Formatter<RacerLap> {
+    public static final LocalTime DEFAULT_TIME = LocalTime.MIDNIGHT;
     private static final int FIRST_ROUND_QUALIFIED_POSITION = 15;
     private final int qualifiedPosition;
 
@@ -71,7 +72,7 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
     @Override
     public List<String> format(List<RacerLap> inputList) {
         List<RacerLap> sortedList = inputList.stream().sorted(Comparator.comparing(RacerLap::getRacerResult)).collect(Collectors.toList());
-        RacerLap emptyRacerLap = new RacerLap(new Racer("empty", "", ""), LocalTime.now());
+        RacerLap emptyRacerLap = new RacerLap(new Racer("empty", "", ""), DEFAULT_TIME);
         int maxFullNameLength = sortedList.stream()
                 .max(Comparator.comparing(racerLap -> racerLap.getRacer().getFullName().length()))
                 .orElse(emptyRacerLap)
