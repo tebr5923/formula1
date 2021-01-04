@@ -3,7 +3,6 @@ package com.foxminded.formatter;
 import com.foxminded.racer.RacerLap;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 public class RacerLapFormatterRacerLapWithDelimiter extends FormatterRacerLapDecorator {
@@ -23,7 +22,7 @@ public class RacerLapFormatterRacerLapWithDelimiter extends FormatterRacerLapDec
     @Override
     public List<String> format(List<RacerLap> inputList) {
         List<String> stringList = super.format(inputList);
-        int maxStringLength = stringList.stream().max(Comparator.comparing(String::length)).toString().length();
+        int maxStringLength = stringList.get(0).length();
         if (qualifiedPosition <= stringList.size()) {
             stringList.add(qualifiedPosition, repeatChar('-',maxStringLength));
         }
