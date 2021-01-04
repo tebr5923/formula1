@@ -14,16 +14,6 @@ import java.util.stream.Collectors;
 
 public class RacerLapTableFormatter implements Formatter<RacerLap> {
     public static final LocalTime DEFAULT_TIME = LocalTime.MIDNIGHT;
-    private static final int FIRST_ROUND_QUALIFIED_POSITION = 15;
-    private final int qualifiedPosition;
-
-    public RacerLapTableFormatter() {
-        this(FIRST_ROUND_QUALIFIED_POSITION);
-    }
-
-    public RacerLapTableFormatter(int qualifiedPosition) {
-        this.qualifiedPosition = qualifiedPosition;
-    }
 
     @Override
     public Iterator<String> formatTable(Table<RacerLap> inputTable) {
@@ -75,20 +65,14 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
         List<RacerLap> sortedList = sortByResult(inputList);
         int maxFullNameLength = computeMaxNameLength(sortedList, Racer::getFullName);
         int maxTeamNameLength = computeMaxNameLength(sortedList, Racer::getTeamName);
-        int maxStringLength = 0;
         int position = 1;
         List<String> stringList = new ArrayList<>();
         for (RacerLap racerLap : sortedList) {
             String string = formatRacerLap(racerLap, position, sortedList.size(), maxFullNameLength, maxTeamNameLength);
             stringList.add(string);
-            maxStringLength = Math.max(maxStringLength, string.length());
             position++;
         }
-        if (qualifiedPosition <= stringList.size()) {
-            stringList.add(qualifiedPosition, repeatChar('-', maxStringLength));
-        } else {
-            stringList.add(repeatChar('-', maxStringLength));
-        }
+
 
         return stringList;
     }
