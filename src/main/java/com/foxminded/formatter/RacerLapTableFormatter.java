@@ -9,6 +9,7 @@ import com.foxminded.table.Table;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class RacerLapTableFormatter implements Formatter<RacerLap> {
@@ -68,23 +69,12 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
         return new String(chars);
     }
 
-//----------------------------------------------------------------------
+    //----------------------------------------------------------------------
     @Override
     public List<String> format(List<RacerLap> inputList) {
         List<RacerLap> sortedList = inputList.stream().sorted(Comparator.comparing(RacerLap::getRacerResult)).collect(Collectors.toList());
-        RacerLap emptyRacerLap = new RacerLap(new Racer("empty", "", ""), DEFAULT_TIME);
-        int maxFullNameLength = sortedList.stream()
-                .max(Comparator.comparing(racerLap -> racerLap.getRacer().getFullName().length()))
-                .orElse(emptyRacerLap)
-                .getRacer()
-                .getFullName()
-                .length();
-        int maxTeamNameLength = sortedList.stream()
-                .max(Comparator.comparing(racerLap -> racerLap.getRacer().getTeamName().length()))
-                .orElse(emptyRacerLap)
-                .getRacer()
-                .getTeamName()
-                .length();
+        int maxFullNameLength = computeMaxNameLength(sortedList, Racer::getFullName);
+        int maxTeamNameLength = computeMaxNameLength(sortedList, Racer::getTeamName);
         int maxStringLength = 0;
         int position = 1;
         List<String> stringList = new ArrayList<>();
@@ -114,5 +104,14 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
                 teamName,
                 racerLap.getRacerResult().format(DateTimeFormatter.ofPattern("mm:ss.SSS"))
         );
+    }
+
+    private int computeMaxNameLength(List<RacerLap> racerLaps, Function<Racer, String> function) {
+        RacerLap emptyRacerLap = new RacerLap(new Racer("empty", "", ""), DEFAULT_TIME);
+        return function.apply(racerLaps.stream()
+                .max(Comparator.comparing(racerLap -> function.apply(racerLap.getRacer()).length()))
+                .orElse(emptyRacerLap)
+                .getRacer())
+                .length();
     }
 }
