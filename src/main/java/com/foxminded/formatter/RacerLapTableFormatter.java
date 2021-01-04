@@ -72,8 +72,6 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
             stringList.add(string);
             position++;
         }
-
-
         return stringList;
     }
 
