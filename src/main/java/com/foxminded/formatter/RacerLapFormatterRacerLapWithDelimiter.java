@@ -22,9 +22,13 @@ public class RacerLapFormatterRacerLapWithDelimiter extends FormatterRacerLapDec
     @Override
     public List<String> format(List<RacerLap> inputList) {
         List<String> stringList = super.format(inputList);
+        return addDelimiter(stringList);
+    }
+
+    private List<String> addDelimiter(List<String> stringList) {
         int maxStringLength = stringList.get(0).length();
         if (qualifiedPosition <= stringList.size()) {
-            stringList.add(qualifiedPosition, repeatChar('-',maxStringLength));
+            stringList.add(qualifiedPosition, repeatChar('-', maxStringLength));
         }
         return stringList;
     }
