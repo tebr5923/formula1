@@ -45,13 +45,13 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
 
     private class InnerRacerLapFormatter {
         final int maxPosition;
-        final int maxFullNameLength;
-        final int maxTeamNameLength;
+        final String fullNameFormat;
+        final String teamNameFormat;
 
         private InnerRacerLapFormatter(int maxPosition, int maxFullNameLength, int maxTeamNameLength) {
             this.maxPosition = maxPosition;
-            this.maxFullNameLength = maxFullNameLength;
-            this.maxTeamNameLength = maxTeamNameLength;
+            fullNameFormat = "%-" + maxFullNameLength + "s ";
+            teamNameFormat = "%-" + maxTeamNameLength + "s ";
         }
 
         private String formatPosition(int position, int maxPosition) {
@@ -61,9 +61,7 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
         }
 
         private String formatRacerLap(RacerLap racerLap, int position) {
-            String fullNameFormat = "%-" + maxFullNameLength + "s ";
             String fullName = String.format(fullNameFormat, racerLap.getRacer().getFullName());
-            String teamNameFormat = "%-" + maxTeamNameLength + "s ";
             String teamName = String.format(teamNameFormat, racerLap.getRacer().getTeamName());
             return String.format("%s %s| %s| %s",
                     formatPosition(position, maxPosition),
