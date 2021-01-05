@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class RacerLapFormatterRacerLapWithDelimiterTest {
+class FormatterRacerLapWithDelimiterTest {
 
     @Mock
     Formatter<RacerLap> mockRacerLapFormatter;
@@ -45,9 +45,9 @@ class RacerLapFormatterRacerLapWithDelimiterTest {
         racerLapList.add(racerLapBuilder.build("SVF", "Sebastian Vettel", "FERRARI", LocalTime.of(0, 1, 4, 415000000)));
         racerLapList.add(racerLapBuilder.build("KRF", "Kimi Raikkonen", "FERRARI", LocalTime.of(0, 1, 12, 655000000)));
 
-        RacerLapFormatterRacerLapWithDelimiter racerLapFormatterRacerLapWithDelimiter =
-                new RacerLapFormatterRacerLapWithDelimiter(mockRacerLapFormatter, 3);
-        List<String> actual = racerLapFormatterRacerLapWithDelimiter.format(racerLapList);
+        FormatterRacerLapWithDelimiter formatterRacerLapWithDelimiter =
+                new FormatterRacerLapWithDelimiter(mockRacerLapFormatter, 3);
+        List<String> actual = formatterRacerLapWithDelimiter.format(racerLapList);
 
         assertEquals(expected, actual);
     }

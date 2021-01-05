@@ -5,16 +5,16 @@ import com.foxminded.racer.RacerLap;
 import java.util.Arrays;
 import java.util.List;
 
-public class RacerLapFormatterRacerLapWithDelimiter extends FormatterRacerLapDecorator {
+public class FormatterRacerLapWithDelimiter extends FormatterRacerLapDecorator {
     private static final int FIRST_ROUND_QUALIFIED_POSITION = 15;
     private final int qualifiedPosition;
 
-    public RacerLapFormatterRacerLapWithDelimiter(Formatter<RacerLap> racerLapFormatter) {
+    public FormatterRacerLapWithDelimiter(Formatter<RacerLap> racerLapFormatter) {
         super(racerLapFormatter);
         this.qualifiedPosition = FIRST_ROUND_QUALIFIED_POSITION;
     }
 
-    public RacerLapFormatterRacerLapWithDelimiter(Formatter<RacerLap> racerLapFormatter, int qualifiedPosition) {
+    public FormatterRacerLapWithDelimiter(Formatter<RacerLap> racerLapFormatter, int qualifiedPosition) {
         super(racerLapFormatter);
         this.qualifiedPosition = qualifiedPosition;
     }
