@@ -10,8 +10,7 @@ public class FormatterRacerLapWithDelimiter extends FormatterRacerLapDecorator {
     private final int qualifiedPosition;
 
     public FormatterRacerLapWithDelimiter(Formatter<RacerLap> racerLapFormatter) {
-        super(racerLapFormatter);
-        this.qualifiedPosition = FIRST_ROUND_QUALIFIED_POSITION;
+        this(racerLapFormatter, FIRST_ROUND_QUALIFIED_POSITION);
     }
 
     public FormatterRacerLapWithDelimiter(Formatter<RacerLap> racerLapFormatter, int qualifiedPosition) {
