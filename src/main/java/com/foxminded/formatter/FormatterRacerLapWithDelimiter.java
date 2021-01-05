@@ -2,6 +2,7 @@ package com.foxminded.formatter;
 
 import com.foxminded.racer.RacerLap;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,12 +27,13 @@ public class FormatterRacerLapWithDelimiter extends FormatterRacerLapDecorator {
 
     private List<String> addDelimiter(List<String> stringList) {
         if (stringList == null) {
-            throw new IllegalArgumentException("input list of racers is empty");
+            return new ArrayList<>();
         }
         int maxStringLength = stringList.get(0).length();
         if (qualifiedPosition <= stringList.size()) {
             stringList.add(qualifiedPosition, repeatChar('-', maxStringLength));
         }
+
         return stringList;
     }
 
