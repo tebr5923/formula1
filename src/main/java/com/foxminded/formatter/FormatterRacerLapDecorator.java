@@ -4,10 +4,10 @@ import com.foxminded.racer.RacerLap;
 
 import java.util.List;
 
-public class FormatterRacerLapDecorator implements Formatter<RacerLap> {
+public abstract class FormatterRacerLapDecorator implements Formatter<RacerLap> {
     private final Formatter<RacerLap> racerLapFormatter;
 
-    public FormatterRacerLapDecorator(Formatter<RacerLap> racerLapFormatter) {
+    protected FormatterRacerLapDecorator(Formatter<RacerLap> racerLapFormatter) {
         this.racerLapFormatter = racerLapFormatter;
     }
 
