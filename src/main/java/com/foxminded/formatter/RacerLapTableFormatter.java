@@ -3,7 +3,6 @@ package com.foxminded.formatter;
 import com.foxminded.racer.Racer;
 import com.foxminded.racer.RacerLap;
 
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,7 +11,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class RacerLapTableFormatter implements Formatter<RacerLap> {
-    public static final LocalTime DEFAULT_TIME = LocalTime.MIDNIGHT;
 
     @Override
     public List<String> format(List<RacerLap> inputList) {
@@ -38,12 +36,12 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
     }
 
     private int computeMaxNameLength(List<RacerLap> racerLaps, Function<Racer, String> function) {
-        RacerLap emptyRacerLap = new RacerLap(new Racer("empty", "", ""), DEFAULT_TIME);
-        return function.apply(racerLaps.stream()
-                .max(Comparator.comparing(racerLap -> function.apply(racerLap.getRacer()).length()))
-                .orElse(emptyRacerLap)
-                .getRacer())
-                .length();
+        return racerLaps.stream()
+                .map(RacerLap::getRacer)
+                .map(function)
+                .mapToInt(String::length)
+                .max()
+                .orElse(0);
     }
 
     private class InnerRacerLapFormatter {
