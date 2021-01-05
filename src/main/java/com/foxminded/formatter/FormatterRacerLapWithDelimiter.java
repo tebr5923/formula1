@@ -25,6 +25,9 @@ public class FormatterRacerLapWithDelimiter extends FormatterRacerLapDecorator {
     }
 
     private List<String> addDelimiter(List<String> stringList) {
+        if (stringList == null) {
+            throw new IllegalArgumentException("input list of racers is empty");
+        }
         int maxStringLength = stringList.get(0).length();
         if (qualifiedPosition <= stringList.size()) {
             stringList.add(qualifiedPosition, repeatChar('-', maxStringLength));
