@@ -20,26 +20,15 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
         int maxFullNameLength = computeMaxNameLength(sortedList, Racer::getFullName);
         int maxTeamNameLength = computeMaxNameLength(sortedList, Racer::getTeamName);
         int position = 1;
+        InnerRacerLapFormatter innerRacerLapFormatter =
+                new InnerRacerLapFormatter(sortedList.size(), maxFullNameLength, maxTeamNameLength);
         List<String> stringList = new ArrayList<>();
         for (RacerLap racerLap : sortedList) {
-            String string = formatRacerLap(racerLap, position, sortedList.size(), maxFullNameLength, maxTeamNameLength);
+            String string = innerRacerLapFormatter.formatRacerLap(racerLap, position);
             stringList.add(string);
             position++;
         }
         return stringList;
-    }
-
-    private String formatRacerLap(RacerLap racerLap, int position, int maxPosition, int maxFullNameLength, int maxTeamNameLength) {
-        String fullNameFormat = "%-" + maxFullNameLength + "s ";
-        String fullName = String.format(fullNameFormat, racerLap.getRacer().getFullName());
-        String teamNameFormat = "%-" + maxTeamNameLength + "s ";
-        String teamName = String.format(teamNameFormat, racerLap.getRacer().getTeamName());
-        return String.format("%s %s| %s| %s",
-                formatPosition(position, maxPosition),
-                fullName,
-                teamName,
-                racerLap.getRacerResult().format(DateTimeFormatter.ofPattern("mm:ss.SSS"))
-        );
     }
 
     private List<RacerLap> sortByResult(List<RacerLap> racerLaps) {
@@ -57,9 +46,34 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
                 .length();
     }
 
-    private String formatPosition(int position, int maxPosition) {
-        int length = (int) Math.ceil(Math.log10(maxPosition + 0.5));
-        String format = "%0" + length + "d%s";
-        return String.format(format, position, ".");
+    private class InnerRacerLapFormatter {
+        final int maxPosition;
+        final int maxFullNameLength;
+        final int maxTeamNameLength;
+
+        private InnerRacerLapFormatter(int maxPosition, int maxFullNameLength, int maxTeamNameLength) {
+            this.maxPosition = maxPosition;
+            this.maxFullNameLength = maxFullNameLength;
+            this.maxTeamNameLength = maxTeamNameLength;
+        }
+
+        private String formatPosition(int position, int maxPosition) {
+            int length = (int) Math.ceil(Math.log10(maxPosition + 0.5));
+            String format = "%0" + length + "d%s";
+            return String.format(format, position, ".");
+        }
+
+        private String formatRacerLap(RacerLap racerLap, int position) {
+            String fullNameFormat = "%-" + maxFullNameLength + "s ";
+            String fullName = String.format(fullNameFormat, racerLap.getRacer().getFullName());
+            String teamNameFormat = "%-" + maxTeamNameLength + "s ";
+            String teamName = String.format(teamNameFormat, racerLap.getRacer().getTeamName());
+            return String.format("%s %s| %s| %s",
+                    formatPosition(position, maxPosition),
+                    fullName,
+                    teamName,
+                    racerLap.getRacerResult().format(DateTimeFormatter.ofPattern("mm:ss.SSS"))
+            );
+        }
     }
 }
