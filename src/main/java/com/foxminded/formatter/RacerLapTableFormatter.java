@@ -22,8 +22,7 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
                 new InnerRacerLapFormatter(sortedList.size(), maxFullNameLength, maxTeamNameLength);
         List<String> stringList = new ArrayList<>();
         for (RacerLap racerLap : sortedList) {
-            String string = innerRacerLapFormatter.formatRacerLap(racerLap, position);
-            stringList.add(string);
+            stringList.add(innerRacerLapFormatter.formatRacerLap(racerLap, position));
             position++;
         }
         return stringList;
