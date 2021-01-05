@@ -2,64 +2,18 @@ package com.foxminded.formatter;
 
 import com.foxminded.racer.Racer;
 import com.foxminded.racer.RacerLap;
-import com.foxminded.table.RacerLapTable;
-import com.foxminded.table.Row;
-import com.foxminded.table.Table;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class RacerLapTableFormatter implements Formatter<RacerLap> {
     public static final LocalTime DEFAULT_TIME = LocalTime.MIDNIGHT;
 
-    @Override
-    public Iterator<String> formatTable(Table<RacerLap> inputTable) {
-        List<RacerLap> sortedList = inputTable.getListValue()
-                .stream()
-                .sorted(Comparator.comparing(RacerLap::getRacerResult))
-                .collect(Collectors.toList());
-        Table<RacerLap> sortedTable = new RacerLapTable(sortedList);
-        int maxFullNameLength = sortedTable.getMaxCellLength(1, String.class);
-        int maxTeamNameLength = sortedTable.getMaxCellLength(2, String.class);
-        List<String> stringList = new ArrayList<>();
-        int maxStringLength = 0;
-        int position = 1;
-        // method
-        for (Row<RacerLap> row : sortedTable) {
-            String string = formatPosition(position, sortedTable.getNumberOfRows())
-                    + formatRow(row, maxFullNameLength, maxTeamNameLength);
-            stringList.add(string);
-            maxStringLength = Math.max(maxStringLength, string.length());
-            position++;
-        }
-        String delimiter = repeatChar('-', maxStringLength);
-        return new DelimiterStingIterator(stringList, delimiter);
-    }
-
-    private String formatRow(Row<RacerLap> row, int maxFullNameLength, int maxTeamNameLength) {
-        String format = " %-" + maxFullNameLength + "s |" + " %-" + maxTeamNameLength + "s |" + " %s";
-        return String.format(format,
-                row.getCell(1, String.class),
-                row.getCell(2, String.class),
-                row.getCell(3, LocalTime.class).format(DateTimeFormatter.ofPattern("mm:ss.SSS")));
-    }
-
-    private String formatPosition(int position, int maxPosition) {
-        int length = (int) Math.ceil(Math.log10(Math.abs(maxPosition) + 0.5));
-        String format = "%0" + length + "d%s";
-        return String.format(format, position, ".");
-    }
-
-    private String repeatChar(char ch, int times) {
-        char[] chars = new char[times];
-        Arrays.fill(chars, ch);
-        return new String(chars);
-    }
-
-    //----------------------------------------------------------------------
     @Override
     public List<String> format(List<RacerLap> inputList) {
         List<RacerLap> sortedList = sortByResult(inputList);
@@ -101,5 +55,11 @@ public class RacerLapTableFormatter implements Formatter<RacerLap> {
                 .orElse(emptyRacerLap)
                 .getRacer())
                 .length();
+    }
+
+    private String formatPosition(int position, int maxPosition) {
+        int length = (int) Math.ceil(Math.log10(Math.abs(maxPosition) + 0.5));
+        String format = "%0" + length + "d%s";
+        return String.format(format, position, ".");
     }
 }
